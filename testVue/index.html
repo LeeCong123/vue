@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+	
+	</style>
+</head>
+<body>
+	<div class="app">
+		
+		<li v-for='(item,index) in preson'>{{item.name}}--{{item.age}}---{{index}}
+				<button @click='add(1,index)'>点击</button>
+				<span :style="[style,style1]">{{item.age}}</span>
+		</li>
+	
+
+
+
+
+
+
+
+
+
+	</div>
+	<script src="../vue.js"></script>
+	<script >
+		const vm=new Vue({
+			el:'.app',
+			data:{
+				msg:'',
+				preson:[
+					{
+					'name':'lc',
+					'age':28
+					},
+					{
+					'name':'lxq',
+					'age':12
+					},
+					{
+					'name':'gaga',
+					'age':23
+					}
+				],
+				style:{
+					color:'red',
+					fontSize:'26px',
+					display:'inline-block',
+					height:'50px',
+					width:'50px',
+					lineHeight:'50px',
+					border:'2px',
+					borderStyle:'solid',
+					borderColor:'black',
+					textAlign:'center'
+					
+					
+
+				},
+				style1:{
+					backgroundColor:'green',
+					color:'#fff',
+					// transform:'translateX(90px)',
+					// transform:'rotateY(40deg)'
+				}
+				
+				
+			},
+			methods:{
+				add(i,index){	
+					return this.preson[index].age+=i;
+
+					// console.log(...arg)
+				}
+			
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <!-- 主体 -->
+    <div id="app">
+
+        <div class="header">
+            <div class="container">
+                <div class="logo">toDoList</div>
+                <div class="input-area">
+                    <input type="text" v-model='inputvalue'  v-on:keyup.enter='add'>
+                    <button @click='add'>添加 </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <h2>
+                <span>正在进行</span>
+                <span class="mask-num">{{this.inputlist.length}}</span>
+            </h2>
+            <ul class="mask-list">
+                <li v-for='(tasks,index) in inputlist' :key='tasks'>
+                    <div>
+                        <input type="checkbox" @click="overtask(index,'need')" >
+                        <span>{{tasks}}</span>
+                    </div>
+                    <button @click="taskdelete(index,'need')">删除</button>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="container">
+            <h2>
+                <span>已经完成</span>
+                <span class="mask-num">{{this.complatelist.length}}</span>
+            </h2>
+
+            <ul class="mask-list complete-list">
+                <li v-for='(complate,index) in complatelist' :key='complate'>
+                    <div>
+                        <input type="checkbox" @click="overtask(index,'com')">
+                        <span>{{complate}}</span>
+                    </div>
+                    <button @click="taskdelete(index,'com')">删除</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                // 清空input
+                inputvalue: '',
+                // 正在进行任务列表
+                inputlist: [],
+                // 完成任务列表
+                complatelist: [],
+
+            },
+            methods: {
+                // 获取input值
+                // getvalue(e) {
+                //     this.inputvalue = e.target.value;
+
+                // },
+                // 添加到正在任务的列表中
+                add() {
+                    this.inputlist.push(this.inputvalue);
+                    this.inputvalue = '';
+
+                },
+                // 下移上移
+                overtask(index, type) {
+                    if (type === 'need') {
+                        const over = this.inputlist.splice(index, 1)
+                        this.complatelist.push(...over);
+                    } else {
+                        const complate = this.complatelist.splice(index, 1);
+                        this.inputlist.push(...complate)
+                    }
+                },
+                // 删除任务
+                taskdelete(index, type) {
+                    if (type === "need") {
+                        this.inputlist.splice(index, 1)
+                    } else {
+                        this.complatelist.splice(index, 1)
+                    }
+
+                }
+            }
+
+        });
+
+
+
+        //    function  getvalue(){
+        //             // 要用到防抖的函数
+        //             console.log(121)
+        //             // return 1;
+        //         }
+
+                        // 要用到防抖的操作（事件）
+        //          window.addEventListener('click',    aa(getvalue,1000))   
+
+        //         // 防抖函数
+        //         function aa(fn,wait){
+        //             let timer=null;
+        //             return function(){
+        //                 if(timer!=null){
+        //                     clearTimeout(timer);
+        //                 }
+        //             timer=setTimeout(fn,wait)
+        //             }
+        //         }
+
+
+    </script>
+</body>
+
+</html>
